@@ -107,6 +107,17 @@ class Component extends AbstractEntity
     }
 
     /**
+     * @param $handle
+     * @return $this
+     */
+    public function setHandle($handle)
+    {
+        $this->setParam('handle', $handle);
+
+        return $this;
+    }
+
+    /**
      * (Not required for On/Off Components or 'per_unit' pricing schemes) One or
      * more price brackets. See Product Components for an overview of how price
      * brackets work for different pricing schemes.
