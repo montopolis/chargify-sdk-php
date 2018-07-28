@@ -314,6 +314,26 @@ class Component extends AbstractEntity
     }
 
     /**
+     * @param $componentId
+     * @return $this
+     */
+    public function listPricePoints($componentId)
+    {
+        $service = $this->getService();
+
+        $response      = $service->request('components/' . (int)$componentId . '/price_points', 'GET');
+        $responseArray = $this->getResponseArray($response);
+
+        if (!$this->isError()) {
+            $this->_data = $this->_normalizeResponseArray($responseArray);
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
+    /**
      * Read a component belonging to a product family
      *
      * @param int $productFamilyId
