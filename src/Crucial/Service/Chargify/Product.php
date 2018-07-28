@@ -324,10 +324,34 @@ class Product extends AbstractEntity
     public function create()
     {
         $productFamilyId = (int) $this->getParam('product_family_id') ?: 0;
+        $uri = "product_families/{$productFamilyId}/products";
 
         $service       = $this->getService();
         $rawData       = $this->getRawData(array('product' => $this->getParams()));
-        $response      = $service->request("product_families/{$productFamilyId}/products", 'POST', $rawData);
+        $response      = $service->request($uri, 'POST', $rawData);
+        $responseArray = $this->getResponseArray($response);
+
+        if (!$this->isError()) {
+            $this->_data = $responseArray['product'];
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Update the customer record in Chargify.
+     *
+     * @param int $id
+     *
+     * @return Product
+     */
+    public function update($id)
+    {
+        $service       = $this->getService();
+        $rawData       = $this->getRawData(array('product' => $this->getParams()));
+        $response      = $service->request('products/' . (int)$id, 'PUT', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
