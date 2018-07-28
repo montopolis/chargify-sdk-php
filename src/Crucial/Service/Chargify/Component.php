@@ -291,6 +291,28 @@ class Component extends AbstractEntity
     }
 
     /**
+     * @param int $componentId
+     * @param array $pricePoint
+     * @return $this
+     */
+    public function createPricePoint($componentId, $pricePoint)
+    {
+        $service  = $this->getService();
+        $rawData  = $this->getRawData(array('price_point' => $pricePoint));
+        $response = $service->request('components/' . (int)$componentId . '/price_points', 'POST', $rawData);
+
+        $responseArray = $this->getResponseArray($response);
+
+        if (!$this->isError() && '201' == $response->getStatusCode()) {
+            $this->_data = $responseArray['price_point'];
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
+    /**
      * List components for a product family
      *
      * @param int $productFamilyId
