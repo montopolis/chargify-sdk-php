@@ -323,9 +323,11 @@ class Product extends AbstractEntity
      */
     public function create()
     {
+        $productFamilyId = (int) $this->getParam('product_family_id') ?: 0;
+
         $service       = $this->getService();
         $rawData       = $this->getRawData(array('product' => $this->getParams()));
-        $response      = $service->request('products', 'POST', $rawData);
+        $response      = $service->request("product_families/{$productFamilyId}/products", 'POST', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
