@@ -325,7 +325,7 @@ class Component extends AbstractEntity
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
-            $this->_data = $this->_normalizeResponseArray($responseArray);
+            $this->_data = $this->_normalizeResponseArray($responseArray, 'price_points');
         } else {
             $this->_data = array();
         }
@@ -412,11 +412,11 @@ class Component extends AbstractEntity
      *
      * @return array
      */
-    protected function _normalizeResponseArray($responseArray)
+    protected function _normalizeResponseArray($responseArray, $key = 'component')
     {
         $return = array();
         foreach ($responseArray as $prod) {
-            $return[] = $prod['component'];
+            $return[] = $prod[$key];
         }
 
         return $return;
