@@ -325,7 +325,7 @@ class Component extends AbstractEntity
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
-            $this->_data = $this->_normalizeResponseArray($responseArray, 'price_points');
+            $this->_data = $responseArray['price_points'];
         } else {
             $this->_data = array();
         }
