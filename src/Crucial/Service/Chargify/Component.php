@@ -203,7 +203,7 @@ class Component extends AbstractEntity
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
-            $this->_data = $this->_normalizeResponseArray($responseArray);
+            $this->_data = $responseArray;
         } else {
             $this->_data = array();
         }
