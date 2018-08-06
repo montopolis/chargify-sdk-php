@@ -189,6 +189,29 @@ class Component extends AbstractEntity
     }
 
     /**
+     * List for handle
+     *
+     * @param string $handle
+     *
+     * @return $this
+     */
+    public function listHandle($handle)
+    {
+        $service = $this->getService();
+
+        $response      = $service->request("/components/lookup?handle={$handle}", 'GET');
+        $responseArray = $this->getResponseArray($response);
+
+        if (!$this->isError()) {
+            $this->_data = $this->_normalizeResponseArray($responseArray);
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
+    /**
      * Read component for a subscription
      *
      * @param int $subscriptionId
