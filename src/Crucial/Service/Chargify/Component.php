@@ -189,17 +189,17 @@ class Component extends AbstractEntity
     }
 
     /**
-     * List for handle
+     * Lookup
      *
-     * @param string $handle
+     * Set the `handle` param before calling this method.
      *
      * @return $this
      */
-    public function listHandle($handle)
+    public function lookup()
     {
         $service = $this->getService();
 
-        $response      = $service->request("/components/lookup", 'GET', ['handle' => $handle]);
+        $response      = $service->request("/components/lookup", 'GET', NULL, $this->getParams());
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
