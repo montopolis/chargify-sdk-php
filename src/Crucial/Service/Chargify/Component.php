@@ -199,7 +199,7 @@ class Component extends AbstractEntity
     {
         $service = $this->getService();
 
-        $response      = $service->request("/components/lookup?handle={$handle}", 'GET');
+        $response      = $service->request("/components/lookup", 'GET', ['handle' => $handle]);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
