@@ -107,12 +107,23 @@ class Component extends AbstractEntity
     }
 
     /**
-     * @param $handle
-     * @return $this
-     */
+ * @param $handle
+ * @return $this
+ */
     public function setHandle($handle)
     {
         $this->setParam('handle', $handle);
+
+        return $this;
+    }
+
+    /**
+     * @param $taxable boolean
+     * @return $this
+     */
+    public function setTaxable($taxable)
+    {
+        $this->setParam('taxable', $taxable);
 
         return $this;
     }
