@@ -635,6 +635,38 @@ class Subscription extends AbstractEntity
         return $this;
     }
 
+    
+    /**
+     * @param $id
+     * @param null $automaticallyResumeAt
+     * @return $this
+     */
+    public function hold($id, $automaticallyResumeAt = null)
+    {
+        $service = $this->getService();
+
+        $params = [];
+        if ($automaticallyResumeAt) {
+            $params['automatically_resume_at'] = $automaticallyResumeAt;
+        }
+
+        $response = $service->request('subscriptions/' . (int)$id . '/hold', 'POST', '', $params);
+        $responseArray = $this->getResponseArray($response);
+
+        $code = $response->getStatusCode();
+        if ('200' != $code) {
+            $this->_errors[] = $responseArray;
+        }
+
+        if (!$this->isError()) {
+            $this->_data = $responseArray['subscription'];
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
     /**
      * List subscriptions by customer ID
      *
