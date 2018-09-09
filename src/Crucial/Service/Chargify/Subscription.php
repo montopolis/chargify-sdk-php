@@ -635,7 +635,7 @@ class Subscription extends AbstractEntity
         return $this;
     }
 
-    
+
     /**
      * @param $id
      * @param null $automaticallyResumeAt
@@ -650,7 +650,7 @@ class Subscription extends AbstractEntity
             $params['automatically_resume_at'] = $automaticallyResumeAt;
         }
 
-        $response = $service->request('subscriptions/' . (int)$id . '/hold', 'POST', '', $params);
+        $response = $service->request('subscriptions/' . (int)$id . '/hold', 'POST', '', ['hold' => $params]);
         $responseArray = $this->getResponseArray($response);
 
         $code = $response->getStatusCode();
