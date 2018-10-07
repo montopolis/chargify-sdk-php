@@ -129,6 +129,19 @@ class Component extends AbstractEntity
     }
 
     /**
+     * @param string|null $taxCode
+     * @return $this
+     */
+    public function setTaxCode($taxCode = null)
+    {
+        if ($taxCode) {
+            $this->setParam('tax_code', $taxCode);
+        }
+
+        return $this;
+    }
+
+    /**
      * (Not required for On/Off Components or 'per_unit' pricing schemes) One or
      * more price brackets. See Product Components for an overview of how price
      * brackets work for different pricing schemes.
