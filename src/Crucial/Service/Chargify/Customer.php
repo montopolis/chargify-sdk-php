@@ -238,6 +238,26 @@ class Customer extends AbstractEntity
     }
 
     /**
+     * @param string $q
+     * @return $this
+     */
+    public function search($q = '')
+    {
+        $service = $this->getService();
+
+        $response      = $service->request('customers', 'GET', NULL, ['q' => $q]);
+        $responseArray = $this->getResponseArray($response);
+
+        if (!$this->isError()) {
+            $this->_data = $this->_normalizeResponseArray($responseArray);
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
+    /**
      * List all customers for a site
      *
      * @return Customer
